@@ -1,0 +1,96 @@
+:root {
+    --gold: #FFD700;
+    --bg-color: #050505;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    font-family: 'Playfair Display', serif;
+    user-select: none;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--gold);
+    transition: opacity 1s ease;
+}
+
+.loader-content { text-align: center; width: 300px; }
+.loader-content h1 { font-family: 'Cinzel', serif; letter-spacing: 2px; }
+
+.progress-bar-container {
+    width: 100%; height: 2px; background: #333; margin-top: 20px;
+}
+#progress-bar {
+    width: 0%; height: 100%; background: var(--gold);
+    transition: width 0.1s linear; box-shadow: 0 0 10px var(--gold);
+}
+
+#enter-btn {
+    margin-top: 30px; padding: 10px 30px;
+    background: transparent; border: 1px solid var(--gold);
+    color: var(--gold); font-family: 'Cinzel', serif;
+    cursor: pointer; opacity: 0; pointer-events: none;
+    transition: all 0.5s ease;
+}
+#enter-btn.visible { opacity: 1; pointer-events: auto; }
+#enter-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); }
+
+/* NEW: Scroll Indicator */
+#scroll-indicator {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0; /* Hidden initially, shown via JS */
+    animation: pulse 2s infinite;
+    transition: opacity 0.5s;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; transform: translate(-50%, -50%) translateY(0px); }
+    50% { opacity: 1; transform: translate(-50%, -50%) translateY(5px); }
+    100% { opacity: 0.5; transform: translate(-50%, -50%) translateY(0px); }
+}
+
+/* Subtitles */
+#subtitle-container {
+    position: fixed; bottom: 10%; width: 100%;
+    display: flex; flex-direction: column; align-items: center;
+    pointer-events: none; z-index: 10;
+}
+
+.sentence-chunk {
+    font-size: 1.6rem; line-height: 1.5; text-align: center;
+    color: transparent;
+    background: linear-gradient(to bottom, #fff 20%, #FFD700 80%);
+    -webkit-background-clip: text; background-clip: text;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+    margin-bottom: 20px;
+    opacity: 0; filter: blur(15px); transform: translateY(30px);
+    transition: all 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.sentence-chunk.visible { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+.speaker-name {
+    font-family: 'Cinzel', serif; font-weight: 700; color: var(--gold);
+    display: block; margin-bottom: 5px; font-size: 1.2rem;
+    text-transform: uppercase; text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+canvas { display: block; }
